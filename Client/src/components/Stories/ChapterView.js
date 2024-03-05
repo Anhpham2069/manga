@@ -5,12 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCircleExclamation,faCircleInfo, faHeart, faHome,faArrowRight} from "@fortawesome/free-solid-svg-icons"
 import NavBar from '../layout/Navbar'
 import Footer from '../layout/footer'
-import { Data } from '../../services/Data'
 
 import { useSelector } from 'react-redux';
 import { selectDarkMode } from '../layout/DarkModeSlice';
 
-import Anh from "../../assets/art/Đại lão tru tiên bắt đầu bằng tâm trí 2.png" 
 
 const ReadStories = () => {
 
@@ -186,7 +184,7 @@ const ReadStories = () => {
           <div className=' w-full flex flex-col justify-center mt-32'>
             {chapter?.item.chapter_image.map((i)=>(
               <img 
-                className='mx-80'
+                className='phone:mx-5 laptop:mx-40 desktop:mx-60'
                 src={`https://sv1.otruyencdn.com/${chapter.item.chapter_path}/${i.image_file}`} alt='anh'>
               </img>
             ))}

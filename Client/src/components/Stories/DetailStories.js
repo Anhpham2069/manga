@@ -195,7 +195,7 @@ const DetailStories = () => {
                 <div className="flex mt-3">
                   {story.item?.category?.map((cate) => {
                     return (
-                      <NavLink to={`/genres/${cate.name}`} key={cate.id}>
+                      <NavLink to={`/category/${cate.slug}`} key={cate.id}>
                         <p
                           className={`${
                             isDarkModeEnable ? "bg-[#252A34]" : "bg-[#EEF3FD]"

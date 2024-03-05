@@ -103,7 +103,7 @@ const TrendStoriesCpn = () => {
                   img={`https://img.otruyenapi.com${storiesData.seoOnPage.og_image?.[index]}`}
                   slug={item.slug}
                   time={trimmedTimeAgo}
-                  nomarl
+                  hot
                 />
                 {/* <p className='text-sm'>Chap {(newestChapter.chapter_id)}</p> */}
               </div>

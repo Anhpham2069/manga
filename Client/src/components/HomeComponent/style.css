@@ -60,3 +60,24 @@
   overflow: hidden;
 
 }
+
+.custom-dropdown select {
+  appearance: none;
+  background-color: #E6F4FF;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.custom-dropdown select:hover {
+  background-color: #DDEEFB;
+}
+
+.custom-dropdown select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}

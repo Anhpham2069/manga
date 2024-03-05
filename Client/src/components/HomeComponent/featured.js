@@ -86,43 +86,18 @@ console.log(storiesData)
   return (
     <div className='phone:flex-row lg:flex tablet:mx-6 lg:mx-14  mt-4 '>
         <div className={`${isDarkModeEnable? "bg-bg_dark_light text-text_darkMode": "bg-white"} lg:w-[70%] pl-3.5 shadow-lg `}>
-            <div className='flex border-b-2 border-gray-200 w-1/4 py-2'>
+            <div className='flex border-b-2 border-gray-200 w-3/4 py-2'>
                 <div className='h-12 flex items-center '>
                     <FontAwesomeIcon icon={faStarOfLife} color='#5383EE' className='transition transform hover:rotate-180'/>
                     <button className='bg-primary-color mr-7 ml-4 text-white flex justify-center items-center rounded-sm h-5/6 w-32'><p>MỚI CẬP NHẬT</p></button>
-                    <button><p className='text-primary-color'>HOT</p></button>
+                    <button><p className='text-primary-color uppercase'>Truyện đã hoàn thành</p></button>
                 </div>
             </div>
             <div className=' grid  phone:grid-cols-2 phone:gap-2 tablet:grid-cols-4 lg:grid-cols-3 desktop:grid-cols-4 lg:gap-4 mt-3 place-items-center'>
-              {/* {Data.map(item=>{
-                const timeAgo = formatDistanceToNow(new Date(item.date_added), { addSuffix: true,locale: vi  }); 
-                const trimmedTimeAgo = timeAgo.replace(/^khoảng\s/, '');
-                const newestChapter = layChapterMoiNhat(item);
-                return(
-                  <>
-                    <div className='flex flex-col justify-center items-center gap-2'>
-                      <CardStories 
-                        // actionButton={promotionButton}
-                        key={item.id}
-                        id={item.id}
-                        title={item.title}
-                        img={item.image}
-                        time={trimmedTimeAgo}
-                        views={item.views}
-                        saves={item.saves}
-                        chapter={newestChapter.chapter_id}
-                        nomarl
-                       
-                        /> 
-                        <p className='text-sm'>Chap {(newestChapter.chapter_id)}</p>
-                    </div>
-                  </>
-                )
-              })} */}
               {storiesData.items?.map((item,index)=>{
                             const timeAgo = formatDistanceToNow(new Date(item.updatedAt), { addSuffix: true,locale: vi  }); 
                             const trimmedTimeAgo = timeAgo.replace(/^khoảng\s/, '');
-                            // const newestChapter = layChapterMoiNhat(item);
+                            console.log(item.chaptersLatest.chapter_name)
                             return(
                             <>
                                 <div className='flex flex-col justify-center items-center gap-2'>
@@ -132,7 +107,8 @@ console.log(storiesData)
                                   title={item.name}
                                   img={`https://img.otruyenapi.com${storiesData.seoOnPage.og_image?.[index]}`}  
                                   slug={item.slug}  
-                                  time={trimmedTimeAgo}              
+                                  time={trimmedTimeAgo}
+                                  chapter={item.chaptersLatest[0].chapter_name}              
                                   nomarl                  
                                   />     
                                     {/* <p className='text-sm'>Chap {(newestChapter.chapter_id)}</p> */}

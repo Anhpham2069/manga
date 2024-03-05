@@ -91,7 +91,7 @@ const ScheduleList = () => {
     return (
     <div className={`${isDarkModeEnable ?"bg-bg_dark_light text-text_darkMode":"bg-white" } h-fit p-5  w-full shadow-lg `}>
         <div className='phone:flex-row  h-full lg:flex phone:text-xs tablet:text-sm'>
-            <div className={`${isDarkModeEnable?"bg-[#3A64C2] text-text_darkMode":"bg-primary-color" } lg:w-2/12 phone:w-full  text-sm text-center  phone:rounded-3xl lg:rounded-lg'`}>
+            <div className={`${isDarkModeEnable?"bg-[#3A64C2] text-text_darkMode":"bg-primary-color" } lg:w-2/12 phone:w-full phone:text-sm  tablet:text-lg text-center  phone:rounded-3xl lg:rounded-lg'`}>
                 <p className='phone:p-2  tablet:p-4 font-semibold'>Lịch Ra truyện Ngày: {formattedDate} </p>
             </div>
             <div className='pl-4'>
@@ -106,7 +106,7 @@ const ScheduleList = () => {
                             <p className='text-green-400'>[{hour}:{minute}]</p>
                             <div className='flex'>
                                 <p  className={`${isDarkModeEnable?"text-text_darkMode":"text-[#73868C]"} font-semibold pl-1`}>{(item.chaptersLatest[0].filename).slice(0, (item.chaptersLatest[0].filename).indexOf("[")).trim()}</p>
-                                <p  className={`${isDarkModeEnable?"text-text_darkMode":"text-slate-800"} font-semibold pl-1`}> - {(item.chaptersLatest[0].filename).slice((item.chaptersLatest[0].filename).indexOf("[")).trim()}</p>
+                                <p  className={`${isDarkModeEnable?"text-text_darkMode":"text-slate-900"} font-semibold pl-1`}> - {(item.chaptersLatest[0].filename).slice((item.chaptersLatest[0].filename).indexOf("[")).trim()}</p>
                             </div>
 
                         </div>
