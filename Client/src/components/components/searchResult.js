@@ -104,7 +104,7 @@ const SearchResult = () => {
             <div className={`
                 flex phone:flex-col gap-4 w-[95%]  mt-6 m-auto
             `}>
-                <div className={`${darkMode? "bg-bg_dark_light text-text_darkMode": "bg-white"} phone:w-full w-[72%] p-2`}>
+                <div className={`${darkMode? "bg-bg_dark_light text-text_darkMode": "bg-white"} phone:w-full w-full p-2`}>
                     <div className='py-1 h-12 flex items-center  justify-between text-lg font-semibold text-primary-color border-b-[1px] border-[#F0F0F0] '>
                                 <p>All Manga</p>
                     </div>

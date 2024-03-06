@@ -91,7 +91,7 @@ const ScheduleList = () => {
     return (
     <div className={`${isDarkModeEnable ?"bg-bg_dark_light text-text_darkMode":"bg-white" } h-fit p-5  w-full shadow-lg `}>
         <div className='phone:flex-row  h-full lg:flex phone:text-xs tablet:text-sm'>
-            <div className={`${isDarkModeEnable?"bg-[#3A64C2] text-text_darkMode":"bg-primary-color" } lg:w-2/12 phone:w-full phone:text-sm  tablet:text-lg text-center  phone:rounded-3xl lg:rounded-lg'`}>
+            <div className={`${isDarkModeEnable?"bg-[#3A64C2] text-text_darkMode ":"bg-primary-color" } text-white lg:w-2/12 phone:w-full phone:text-sm  tablet:text-lg text-center  phone:rounded-3xl lg:rounded-lg'`}>
                 <p className='phone:p-2  tablet:p-4 font-semibold'>Lịch Ra truyện Ngày: {formattedDate} </p>
             </div>
             <div className='pl-4'>

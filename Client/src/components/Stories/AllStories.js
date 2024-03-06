@@ -21,65 +21,69 @@ import Footer from "../layout/footer";
 import { useEffect } from "react";
 import axios from "axios";
 import { Skeleton } from "antd";
+import Pagination from "../components/pagination";
 const AllStories = () => {
   const darkMode = useSelector(selectDarkMode);
+  // sate
   const [storiesData, setStoriesData] = useState([]);
   const [slug, setSlug] = useState("truyen-moi");
   const [loading, setLoading] = useState(false);
-  // sate
   const [currentPage, setCurrentPage] = useState(1);
-
+  const [totalPages, setTotalPages] = useState(0);
+  const itemsPerPage = 24;
   const sortedData = [...Data].sort((a, b) => b.views - a.views);
-
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get(
-          `https://otruyenapi.com/v1/api/danh-sach/${slug}`
-        );
-
-        if (res.data) {
-          setStoriesData(res.data.data);
-        }
-      } catch (error) {
-        // Xử lý lỗi ở đây, ví dụ:
-        console.error("Error fetching data:", error);
-        // Có thể hiển thị thông báo lỗi cho người dùng hoặc xử lý theo cách phù hợp khác
-      } finally {
-        setLoading(false);
-      }
-    };
     fetchData();
-  }, [slug]);
+  }, [slug, currentPage]); // Fetch data when slug or currentPage changes
+  
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(
+        `https://otruyenapi.com/v1/api/danh-sach/${slug}`,
+        {
+          params: {
+            page: currentPage,
+            totalItemsPerPage: itemsPerPage
+          }
+        }
+      );
+  
+      if (res.data) {
+        console.log(res.data.data.params.pagination.totalItemsPerPage)
+        setStoriesData(res.data.data);
+        setTotalPages(Math.ceil(res.data.data.params.pagination.totalItems / res.data.data.params.pagination.totalItemsPerPage));
+      }
+    } catch (error) {
+      // Xử lý lỗi ở đây
+    } finally {
+      setLoading(false);
+    }
+  };
 
   console.log(storiesData);
+  console.log(totalPages)
 
   const handleSectionClick = (sectionSlug) => {
     setSlug(sectionSlug);
   };
   //   phan trang (pagination)
-  const truyensPerPage = 10;
-  const indexOfLastTruyen = currentPage * truyensPerPage;
-  const indexOfFirstTruyen = indexOfLastTruyen - truyensPerPage;
-  const currentTruyens = storiesData.items?.slice(
-    indexOfFirstTruyen,
-    indexOfLastTruyen
-  );
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
-  const nextPage = () => {
-    if (currentPage < Math.ceil(Data.length / truyensPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
-
-  const prevPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+  
+  // Tạo phạm vi của các trang
+  const getPageRange = () => {
+    const pageRange = [];
+    const startPage = Math.max(1, currentPage - 2);
+    const endPage = Math.min(totalPages, startPage + 4);
+    for (let i = startPage; i <= endPage; i++) {
+      pageRange.push(i);
+    } 
+    return pageRange;
   };
+  
+  
   return (
     <div
       className={`${
@@ -199,8 +203,7 @@ const AllStories = () => {
           >
             {loading && <Skeleton avatar active />}
 
-            {currentTruyens?.map((item, index) => {
-              console.log(item.updatedAt);
+            {storiesData.items?.map((item, index) => {
               const timeAgo = formatDistanceToNow(new Date(item.updatedAt), {
                 addSuffix: true,
                 locale: vi,
@@ -230,15 +233,8 @@ const AllStories = () => {
               );
             })}
           </div>
-          <div className="p-4 w-full border-t-[1px] mt-10">
-            <Pagination
-              truyensPerPage={truyensPerPage}
-              totalTruyens={Data.length}
-              paginate={paginate}
-              currentPage={currentPage}
-              nextPage={nextPage}
-              prevPage={prevPage}
-            />
+          <div className='p-4 flex justify-center items-center w-full border-t-[1px] mt-10'>
+              <Pagination currentPage={currentPage} totalPages={totalPages} handlePageChange={handlePageChange} getPageRange={getPageRange}/>
           </div>
         </div>
 
@@ -252,46 +248,5 @@ const AllStories = () => {
   );
 };
 
-const Pagination = ({
-  truyensPerPage,
-  totalTruyens,
-  paginate,
-  currentPage,
-  nextPage,
-  prevPage,
-}) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalTruyens / truyensPerPage); i++) {
-    pageNumbers.push(i);
-  }
-
-  return (
-    <ul className="pagination flex justify-center items-center gap-5">
-      <li className="page-item">
-        <a href="#" className="page-link" onClick={() => prevPage()}>
-          Previous
-        </a>
-      </li>
-      {pageNumbers.map((number) => (
-        <li
-          key={number}
-          onClick={() => paginate(number)}
-          className={`page-item ${
-            currentPage === number ? "active bg-primary-color text-white" : ""
-          } cursor-pointer border-[1px] py-2 px-4`}
-        >
-          <a href="#" className="page-link">
-            {number}
-          </a>
-        </li>
-      ))}
-      <li className="page-item">
-        <a href="#" className="page-link" onClick={() => nextPage()}>
-          Next
-        </a>
-      </li>
-    </ul>
-  );
-};
 
 export default AllStories;
